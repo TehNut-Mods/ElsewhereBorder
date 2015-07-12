@@ -5,7 +5,6 @@ import net.minecraft.server.MinecraftServer;
 import org.apache.commons.lang3.tuple.MutableTriple;
 import org.apache.commons.lang3.tuple.Triple;
 import tehnut.elsewhere.ConfigHandler;
-import tehnut.elsewhere.ElsewhereBorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +12,7 @@ import java.util.List;
 public class Utils {
 
     public static List<Triple<Integer, Integer, Integer>> boundList = new ArrayList<Triple<Integer, Integer, Integer>>();
+    public static List<String> vipList = new ArrayList<String>();
 
     public static void buildBoundList() {
         for (String bound : ConfigHandler.dimBounds) {
@@ -23,15 +23,17 @@ public class Utils {
             int maxX = Integer.parseInt(boundSplit[0]);
             int maxZ = Integer.parseInt(boundSplit[1]);
 
-//            ElsewhereBorder.logger.info(bound + "---" + dimSplit[0] + "---" + dimSplit[1] + "---" + boundSplit[0] + "---" + boundSplit[1]);
-
             boundList.add(new MutableTriple<Integer, Integer, Integer>(dimensionID, maxX, maxZ));
         }
     }
 
+    public static void buildVIPList() {
+        for (String vip : ConfigHandler.vipList)
+            vipList.add(vip);
+    }
+
     public static boolean shouldPlayerPass(EntityPlayer player) {
-//        return isPlayerOP(player) && ConfigHandler.ignoreOP;
-        return false;
+        return (isPlayerOP(player) && ConfigHandler.allowOPBypass) || vipList.contains(player.getUniqueID().toString());
     }
 
     private static boolean isPlayerOP(EntityPlayer player) {

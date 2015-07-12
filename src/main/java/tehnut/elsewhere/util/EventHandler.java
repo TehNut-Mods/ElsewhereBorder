@@ -17,26 +17,27 @@ public class EventHandler {
 
         EntityPlayer player = event.player;
         int dimensionID = player.dimension;
+        String outOfBounds = ConfigHandler.outOfBoundsMessage + player.getUniqueID().toString();
 
         if (!player.worldObj.isRemote) {
             for (Triple<Integer, Integer, Integer> triple : Utils.boundList) {
-                if (triple.getLeft() == dimensionID) {
+                if (triple.getLeft() == dimensionID && !Utils.shouldPlayerPass(player)) {
                     // Too far +X
                     if (coordX > triple.getMiddle()) {
                         player.setPositionAndUpdate((double) triple.getMiddle() - 1.5, coordY + .5, coordZ);
-                        player.addChatComponentMessage(new ChatComponentText(ConfigHandler.outOfBoundsMessage));
+                        player.addChatComponentMessage(new ChatComponentText(outOfBounds));
                     }
 
                     // Too far -X
                     if (coordX < -triple.getMiddle()) {
                         player.setPositionAndUpdate((double) -triple.getMiddle() + 1.5, coordY + .5, coordZ);
-                        player.addChatComponentMessage(new ChatComponentText(ConfigHandler.outOfBoundsMessage));
+                        player.addChatComponentMessage(new ChatComponentText(outOfBounds));
                     }
 
                     // Too far +Z
                     if (coordZ > triple.getRight()) {
                         player.setPositionAndUpdate(coordX, coordY + .5, (double) triple.getRight() - 1.5);
-                        player.addChatComponentMessage(new ChatComponentText(ConfigHandler.outOfBoundsMessage));
+                        player.addChatComponentMessage(new ChatComponentText(outOfBounds));
                     }
 
                     // Too far -Z

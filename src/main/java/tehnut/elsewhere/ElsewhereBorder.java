@@ -23,6 +23,7 @@ public class ElsewhereBorder {
         ConfigHandler.init(new File(event.getModConfigurationDirectory(), ModInformation.ID + ".cfg"));
 
         Utils.buildBoundList();
+        Utils.buildVIPList();
 
         FMLCommonHandler.instance().bus().register(new EventHandler());
     }
