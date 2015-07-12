@@ -17,7 +17,7 @@ public class EventHandler {
 
         EntityPlayer player = event.player;
         int dimensionID = player.dimension;
-        String outOfBounds = ConfigHandler.outOfBoundsMessage + player.getUniqueID().toString();
+        String outOfBounds = ConfigHandler.outOfBoundsMessage;
 
         if (!player.worldObj.isRemote) {
             for (Triple<Integer, Integer, Integer> triple : Utils.boundList) {
