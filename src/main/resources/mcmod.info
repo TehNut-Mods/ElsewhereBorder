@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ElsewhereBorder",
+  "name": "Elsewhere Border",
+  "description": "Simple world border mod for Forge",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [ "TehNut" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
