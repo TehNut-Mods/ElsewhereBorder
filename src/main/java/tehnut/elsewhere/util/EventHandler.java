@@ -138,6 +138,7 @@ public class EventHandler {
         for (Facing facing : facings) {
             if (facing != null) {
                 glPushMatrix();
+                glPushAttrib(GL_ALL_ATTRIB_BITS);
                 glTranslated(-entityX, -entityY, -entityZ);
                 double transX = facing.isX() ? facing.isPos() ? maxX - 0.001 : minX + 0.001 : entityX;
                 double transZ = facing.isZ() ? facing.isPos() ? maxZ - 0.001 : minZ + 0.001 : entityZ;
@@ -158,6 +159,7 @@ public class EventHandler {
                 // This one will render overtop of anything (ala nametags) so it has a much lower alpha value
                 glDisable(GL_DEPTH_TEST);
                 renderCircle(facing, renderEntity, minX, minZ, maxX, maxZ, 0.3f, event.partialTicks);
+                glPopAttrib();
                 glPopMatrix();
             }
         }
