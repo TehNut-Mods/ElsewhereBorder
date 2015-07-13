@@ -3,8 +3,11 @@ package tehnut.elsewhere;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.MinecraftForge;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import tehnut.elsewhere.util.EventHandler;
 import tehnut.elsewhere.util.Utils;
 
@@ -25,6 +28,8 @@ public class ElsewhereBorder {
         Utils.buildBoundList();
         Utils.buildVIPList();
 
-        FMLCommonHandler.instance().bus().register(new EventHandler());
+        EventHandler eventhandler = new EventHandler();
+        FMLCommonHandler.instance().bus().register(eventhandler);
+        MinecraftForge.EVENT_BUS.register(eventhandler);
     }
 }
