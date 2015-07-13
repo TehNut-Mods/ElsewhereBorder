@@ -1,17 +1,21 @@
 package tehnut.elsewhere.util;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.server.MinecraftServer;
-import org.apache.commons.lang3.tuple.MutableTriple;
-import org.apache.commons.lang3.tuple.Triple;
-import tehnut.elsewhere.ConfigHandler;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import tehnut.elsewhere.ConfigHandler;
+
+import com.google.common.collect.Maps;
 
 public class Utils {
 
-    public static List<Triple<Integer, Integer, Integer>> boundList = new ArrayList<Triple<Integer, Integer, Integer>>();
+    public static Map<Integer, Pair<Integer, Integer>> bounds = Maps.newHashMap();
     public static List<String> vipList = new ArrayList<String>();
 
     public static void buildBoundList() {
@@ -23,7 +27,7 @@ public class Utils {
             int maxX = Integer.parseInt(boundSplit[0]);
             int maxZ = Integer.parseInt(boundSplit[1]);
 
-            boundList.add(new MutableTriple<Integer, Integer, Integer>(dimensionID, maxX, maxZ));
+            bounds.put(dimensionID, Pair.of(maxX, maxZ));
         }
     }
 
