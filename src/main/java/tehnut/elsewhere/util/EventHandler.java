@@ -26,10 +26,10 @@ public class EventHandler {
 
         EntityPlayer player = event.player;
         int dimensionID = player.dimension;
+        Pair<Integer, Integer> bound = Utils.bounds.get(dimensionID);
         String outOfBounds = ConfigHandler.outOfBoundsMessage;
 
-        if (!player.worldObj.isRemote) {
-            Pair<Integer, Integer> bound = Utils.bounds.get(dimensionID);
+        if (!player.worldObj.isRemote && bound != null) {
             if (!Utils.shouldPlayerPass(player)) {
                 // Too far +X
                 if (coordX > bound.getLeft()) {
@@ -121,11 +121,16 @@ public class EventHandler {
     public void onWorldRender(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getMinecraft();
         EntityLivingBase renderEntity = mc.renderViewEntity;
+
+        Pair<Integer, Integer> bound = Utils.bounds.get(renderEntity.dimension);
+        
+        if (bound == null) {
+            return;
+        }
+
         double entityX = renderEntity.lastTickPosX + (renderEntity.posX - renderEntity.lastTickPosX) * (double) event.partialTicks;
         double entityY = renderEntity.lastTickPosY + (renderEntity.posY - renderEntity.lastTickPosY) * (double) event.partialTicks;
         double entityZ = renderEntity.lastTickPosZ + (renderEntity.posZ - renderEntity.lastTickPosZ) * (double) event.partialTicks;
-
-        Pair<Integer, Integer> bound = Utils.bounds.get(renderEntity.dimension);
 
         // mins being the negative of maxes is assumed.
         // If that is ever changed, this logic needs to be altered as well.
